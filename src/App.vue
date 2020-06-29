@@ -1,32 +1,29 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    App组件
+    <!-- 路由链接 -->
+    <router-link to='/home'>111</router-link>
+    <router-link to='/search'>222</router-link>
+    <router-link to='/order'>333</router-link>
+    <router-link to='/personal'>444</router-link>
+
+    <!-- 路由占位符 -->
+    <router-view></router-view>
+
+    <!-- 底部导航栏 -->
+    <FooterGuide/>
   </div>
 </template>
 
+<script>
+import FooterGuide from './components/FooterGuide/FooterGuide.vue'
+export default {
+  components: {
+    FooterGuide
+  }
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
