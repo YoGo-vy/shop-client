@@ -33,7 +33,7 @@ export default {
 }
 </script>
 
-<style lang="less" scope>
+<style lang="less">
 .footer-guide {
     position: fixed;
     bottom: 0;
@@ -67,6 +67,6 @@ export default {
     }
 }
 .current-item {
-    color: #4DD493;
+    color: #02a774;
 }
 </style>

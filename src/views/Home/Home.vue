@@ -6,7 +6,7 @@
                 <i class="iconfont icon-dingwei"></i>
             </span>
             <span class="search">
-                <i class="iconfont icon-search"></i>
+                 <i class="iconfont icon-search"></i>
                 <input type="text" placeholder="查找附近商家" class="searche-input">
              </span>
             <span class="login">
@@ -22,31 +22,31 @@
                     <span>甜点</span>
                 </li>
                 <li class="nav-item">
-                    <img src="/imgs/nav/1.jpg" alt="">
+                    <img src="/imgs/nav/2.jpg" alt="">
                     <span>甜点</span>
                 </li>
                 <li class="nav-item">
-                    <img src="/imgs/nav/1.jpg" alt="">
+                    <img src="/imgs/nav/3.jpg" alt="">
                     <span>甜点</span>
                 </li>
                 <li class="nav-item">
-                    <img src="/imgs/nav/1.jpg" alt="">
+                    <img src="/imgs/nav/4.jpg" alt="">
                     <span>甜点</span>
                 </li>
                 <li class="nav-item">
-                    <img src="/imgs/nav/1.jpg" alt="">
+                    <img src="/imgs/nav/5.jpg" alt="">
                     <span>甜点</span>
                 </li>
                 <li class="nav-item">
-                    <img src="/imgs/nav/1.jpg" alt="">
+                    <img src="/imgs/nav/6.jpg" alt="">
                     <span>甜点</span>
                 </li>
                 <li class="nav-item">
-                    <img src="/imgs/nav/1.jpg" alt="">
+                    <img src="/imgs/nav/7.jpg" alt="">
                     <span>甜点</span>
                 </li>
                 <li class="nav-item">
-                    <img src="/imgs/nav/1.jpg" alt="">
+                    <img src="/imgs/nav/8.jpg" alt="">
                     <span>甜点</span>
                 </li>
             </ul>
@@ -100,10 +100,10 @@ export default {
 
 }
 </script>
-<style lang="less" scope>
+<style lang="less" scoped>
 header {
     height: 50px;
-    background-color: #02A774;
+    background-color: #58D493;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
@@ -115,23 +115,25 @@ header {
     & .login{
         line-height: 50px;
         font: 18px;
+        color: #F1F1F1;
     }
     & .search {
         position: relative;
-        width: 50%;
-        height: 20px;
+        width: 60%;
+        height: 30px;
         line-height: 50px;
         font-size: 12px;
         text-align: center;
         & input {
             height: 100%;
+            width: 70%;
             border-radius: 15px;
-            background-color: #F5F5F5;
+            background-color: #fff;
             padding-left: 35px;
         }
         & .iconfont {
             position: absolute;
-            left: 15px;
+            left: 25px;
         }
     }
 }
@@ -142,9 +144,13 @@ header {
     border-bottom: 1px #F1F1F1 solid;
     padding: 10px 5px;
     & .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         width: 25%;
+        font-size: 15px;
         & img {
-            width: 100%;
+            width: 65%;
         }
     }
 }
@@ -156,38 +162,45 @@ article {
     margin-top: 10px;
         & span {
             margin: 5px;
+            & i{
+                font-size: 18px;
+            }
         }
     }
 }
 .list-item {
     overflow: hidden;
     margin: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     border-bottom: 1px #F1F1F1 solid;
     .item-img {
         float: left;
-        width: 30%;
+        width: 25%;
+        border: 1px #F1F1F1 solid;
+        margin-right: 10px;
+        & img {
+            width: 100%;
+        }
     }
     .item-msg {
         float: left;
-        width: 60%;
+        width: 70%;
         & .pingpai {
             background-color: orange;
             font-size: 12px;
         }
         & .tag {
             float: right;
-            font-size: 10px;
+            font-size: 6px;
             & span{
                 border: 1px #ddd solid;
-                color: #ddd;
-                padding: 1px;
+                color: #7E8C8D;
                 margin-right: 1px;
             }
         }
         & .about {
-            margin-top: 25px;
-            font-size: 13px;
+            margin-top: 18px;
+            font-size: 8px;
             & .star {
                 display: inline-block;
             }
@@ -197,7 +210,7 @@ article {
             & .waimai {
                 float: right;
                 border: 1px #ddd solid;
-                color: #ddd;
+                color: #7E8C8D;
             }
         }
         & .peisong {

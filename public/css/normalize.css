@@ -478,5 +478,10 @@ input {
   border: none;
   outline: none;
 }
+button {
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
 
 
