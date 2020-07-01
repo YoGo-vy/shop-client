@@ -1,8 +1,11 @@
 <template>
     <div>
+         <header>
+            订单
+        </header>
         <div class="login">
             <div class="bg"></div>
-            <button>点击登录查看</button>
+            <button @click="$router.push('/login')">点击登录查看</button>
         </div>
     </div>
 </template>
@@ -12,6 +15,13 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+header {
+    height: 50px;
+    background-color: #58D493;
+    line-height: 50px;
+    color: #fff;
+    text-align: center;
+}
 .login {
     position: fixed;
     left: 50%;

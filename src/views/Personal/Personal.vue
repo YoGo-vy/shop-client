@@ -4,16 +4,17 @@
             用户中心
         </header>
         <!-- 用户信息 -->
-        <div class="personal">
+        <router-link to="/login" class="personal">
             <div class="personal-pic">
-               <i class="iconfont icon-personal"></i>
+            <i class="iconfont icon-personal"></i>
             </div>
             <div class="personal-msg">
                 <strong>登录/注册</strong>
                 <span><i class="iconfont icon-shouji"></i> 暂无绑定手机</span>
             </div>
             <span class="login-icon"><i class="iconfont icon-jiantou"></i></span>
-        </div>
+        </router-link>
+
         <!-- 用户账户余额 -->
         <ul class="personal-acount">
             <li class="acount-item">

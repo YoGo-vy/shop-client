@@ -1,5 +1,5 @@
 <template>
-    <div class="footer-guide">
+    <div class="footer-guide" v-show="$route.meta.showFooter">
         <!-- 路由链接 -->
         <ul class="footer">
             <li v-for='(item,index) in list' :key='index'>

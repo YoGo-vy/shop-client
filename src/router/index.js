@@ -5,16 +5,19 @@ import Home from '../views/Home/Home.vue'
 import Search from '../views/Search/Search.vue'
 import Order from '../views/Order/Order.vue'
 import Personal from '../views/Personal/Personal.vue'
+import Login from '../views/Login/Login'
 
 // 挂载Router
 Vue.use(Router)
 
 const router = new Router({
   routes: [
-    { path: '/home', component: Home },
-    { path: '/search', component: Search },
-    { path: '/order', component: Order },
-    { path: '/personal', component: Personal }
+    { path: '/', redirect: '/home' },
+    { path: '/home', component: Home, meta: { showFooter: true } },
+    { path: '/search', component: Search, meta: { showFooter: true } },
+    { path: '/order', component: Order, meta: { showFooter: true } },
+    { path: '/personal', component: Personal, meta: { showFooter: true } },
+    { path: '/login', component: Login }
   ]
 })
 export default router

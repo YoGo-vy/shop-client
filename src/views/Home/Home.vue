@@ -1,19 +1,12 @@
 <template>
     <section>
         <!-- 头部 -->
-        <header>
-            <span class="location">
-                <i class="iconfont icon-dingwei"></i>
-            </span>
-            <span class="search">
-                 <i class="iconfont icon-search"></i>
+        <Header>
+            <span class="search" slot='input' @click="search()">
+                <i class="iconfont icon-search"></i>
                 <input type="text" placeholder="查找附近商家" class="searche-input">
-             </span>
-            <span class="login">
-                登录|注册
             </span>
-        </header>
-
+        </Header>
         <!-- 导航 -->
         <nav>
             <ul class="nav">
@@ -86,56 +79,167 @@
                     </ul>
 
                 </div>
+                <div class="list-item">
+                    <div class="item-img">
+                        <img src="/imgs/nav/1.jpg" alt="">
+                    </div>
+                    <ul class="item-msg">
+                        <li>
+                            <span class="pingpai">品牌</span>
+                            <span>店铺名</span>
+                        </li>
+                        <li class="tag">
+                            <span>保</span>
+                            <span>准</span>
+                            <span>票</span>
+                        </li>
+                        <li class="about">
+                            <section class="star">***</section>
+                            <span class="pingfen">4.7</span>
+                            <span>月销<span>106</span>单</span>
+                            <span class="waimai">外卖专送</span>
+                        </li>
+                        <li class="peisong">
+                            <span>￥<span>20</span>元起送/配送费约￥<span>5</span></span>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="list-item">
+                    <div class="item-img">
+                        <img src="/imgs/nav/1.jpg" alt="">
+                    </div>
+                    <ul class="item-msg">
+                        <li>
+                            <span class="pingpai">品牌</span>
+                            <span>店铺名</span>
+                        </li>
+                        <li class="tag">
+                            <span>保</span>
+                            <span>准</span>
+                            <span>票</span>
+                        </li>
+                        <li class="about">
+                            <section class="star">***</section>
+                            <span class="pingfen">4.7</span>
+                            <span>月销<span>106</span>单</span>
+                            <span class="waimai">外卖专送</span>
+                        </li>
+                        <li class="peisong">
+                            <span>￥<span>20</span>元起送/配送费约￥<span>5</span></span>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="list-item">
+                    <div class="item-img">
+                        <img src="/imgs/nav/1.jpg" alt="">
+                    </div>
+                    <ul class="item-msg">
+                        <li>
+                            <span class="pingpai">品牌</span>
+                            <span>店铺名</span>
+                        </li>
+                        <li class="tag">
+                            <span>保</span>
+                            <span>准</span>
+                            <span>票</span>
+                        </li>
+                        <li class="about">
+                            <section class="star">***</section>
+                            <span class="pingfen">4.7</span>
+                            <span>月销<span>106</span>单</span>
+                            <span class="waimai">外卖专送</span>
+                        </li>
+                        <li class="peisong">
+                            <span>￥<span>20</span>元起送/配送费约￥<span>5</span></span>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="list-item">
+                    <div class="item-img">
+                        <img src="/imgs/nav/1.jpg" alt="">
+                    </div>
+                    <ul class="item-msg">
+                        <li>
+                            <span class="pingpai">品牌</span>
+                            <span>店铺名</span>
+                        </li>
+                        <li class="tag">
+                            <span>保</span>
+                            <span>准</span>
+                            <span>票</span>
+                        </li>
+                        <li class="about">
+                            <section class="star">***</section>
+                            <span class="pingfen">4.7</span>
+                            <span>月销<span>106</span>单</span>
+                            <span class="waimai">外卖专送</span>
+                        </li>
+                        <li class="peisong">
+                            <span>￥<span>20</span>元起送/配送费约￥<span>5</span></span>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="list-item">
+                    <div class="item-img">
+                        <img src="/imgs/nav/1.jpg" alt="">
+                    </div>
+                    <ul class="item-msg">
+                        <li>
+                            <span class="pingpai">品牌</span>
+                            <span>店铺名</span>
+                        </li>
+                        <li class="tag">
+                            <span>保</span>
+                            <span>准</span>
+                            <span>票</span>
+                        </li>
+                        <li class="about">
+                            <section class="star">***</section>
+                            <span class="pingfen">4.7</span>
+                            <span>月销<span>106</span>单</span>
+                            <span class="waimai">外卖专送</span>
+                        </li>
+                        <li class="peisong">
+                            <span>￥<span>20</span>元起送/配送费约￥<span>5</span></span>
+                        </li>
+                    </ul>
+
+                </div>
             </div>
         </article>
     </section>
 </template>
+
 <script>
+import Header from '../../components/Header/Header'
 export default {
+  components: {
+    Header
+  },
   data () {
     return {
 
     }
+  },
+  methods: {
+    search () {
+      this.$router.push('/search')
+    }
   }
-
 }
 </script>
 <style lang="less" scoped>
-header {
-    height: 50px;
-    background-color: #58D493;
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: row;
-    justify-content: space-around;
-    & .location i{
-        font-size: 32px;
-        line-height: 50px;
-    }
-    & .login{
-        line-height: 50px;
-        font: 18px;
-        color: #F1F1F1;
-    }
-    & .search {
-        position: relative;
-        width: 60%;
-        height: 30px;
-        line-height: 50px;
-        font-size: 12px;
-        text-align: center;
-        & input {
-            height: 100%;
-            width: 70%;
-            border-radius: 15px;
-            background-color: #fff;
-            padding-left: 35px;
-        }
-        & .iconfont {
-            position: absolute;
-            left: 25px;
-        }
-    }
+Header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+nav {
+    margin-top: 50px;
 }
 .nav {
     display: flex;
@@ -168,6 +272,7 @@ article {
         }
     }
 }
+
 .list-item {
     overflow: hidden;
     margin: 10px;
