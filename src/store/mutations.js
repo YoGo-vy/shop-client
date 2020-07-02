@@ -14,5 +14,10 @@ export default {
   // 存储商家列表
   setshops (state, shops) {
     state.shops = shops
+  },
+
+  // 存储用户信息
+  setUserData (state, userData) {
+    state.userData = userData
   }
 }

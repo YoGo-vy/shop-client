@@ -33,8 +33,8 @@
                 </span>
                 <span>附近商家</span>
             </div>
-            <div class="list" v-if="shops.length" >
-                <div class="list-item" v-for="(item) in shops" :key="item.id" >
+            <div class="list" v-if="categorys.length" >
+                <div class="list-item" v-for="(item) in shops" :key="item.id">
                     <div class="item-img">
                         <img src="/imgs/nav/1.jpg" alt="">
                     </div>
@@ -109,7 +109,6 @@ export default {
           return arr
         }
       })
-      console.log(arr)
       return arr
     }
   },

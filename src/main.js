@@ -6,7 +6,10 @@ import axios from 'axios'
 import './plugins/vant'
 
 // 配置axios
-axios.defaults.baseURL = 'http://localhost:4000'
+// axios.defaults.baseURL = 'http://localhost:4000'
+
+// 开发模式反向代理
+axios.defaults.baseURL = '/api'
 
 // 挂载axios当前Vue原型
 Vue.prototype.$http = axios

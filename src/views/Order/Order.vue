@@ -5,12 +5,23 @@
         </header>
         <div class="login">
             <div class="bg"></div>
-            <button @click="$router.push('/login')">点击登录查看</button>
+            <button @click="$router.push('/login')" v-show="!userData._id">点击登录查看</button>
+        </div>
+        <div v-show="userData._id">
+            <ul>
+                <li v-for="(item,index) in 8" :key="index">
+                    订单item {{item}}
+                </li>
+            </ul>
         </div>
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
+  computed: {
+    ...mapState(['userData'])
+  }
 
 }
 </script>

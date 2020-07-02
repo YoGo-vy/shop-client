@@ -11,5 +11,7 @@ export default {
   // 食品分类信息
   categorys: [],
   // 商家列表
-  shops: []
+  shops: [],
+  // 用户信息
+  userData: {}
 }

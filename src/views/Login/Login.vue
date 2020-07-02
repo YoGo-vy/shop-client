@@ -6,27 +6,35 @@
             <ul class="login-way" @click="changeLoginWay($event)">
                 <li :class="loginWay?'li-current':''">短信登录</li>
                 <li :class="!loginWay?'li-current':''">密码登录</li>
+
             </ul>
-            <form action="" class="login-form" v-if="loginWay">
-                <input type="text" placeholder="请输入手机号">
-                <input type="text" placeholder="手机验证码">
+            <form action="" class="login-form" v-show="loginWay">
+                <section>
+                    <input v-model="phoneNumber" type="text" placeholder="请输入手机号">
+                    <span :class="['sendcode',sendCodeStatus?'hadsend':'']" @click="sendCode()" ref="sendCode">
+                        {{sendCodeStatus?'已发送('+timer+'s)':'点击发送验证码'}}
+                    </span>
+                </section>
+                <input v-model="phoneMsg" type="text" placeholder="手机验证码">
                 <p>提示：未绑定的手机号，登录时将自动注册，代表已同意<a href="javascript:;">《用户服务协议》</a></p>
             </form>
-            <form action="" class="login-form" v-else>
+            <form action="" class="login-form" v-show="!loginWay">
                 <section>
-                    <input type="text" placeholder="请输入手机/邮箱/用户名">
+                    <input v-model="usename" type="text" placeholder="请输入用户名">
                 </section>
                 <section>
-                    <input :type="showPassword?'password':'text'" placeholder="用户密码">
-                    <div class="switch" @click="changeShowPassword()"><i class="iconfont icon-ai-eye"></i></div>
+                    <input v-model="password" :type="showPassword?'password':'text'" placeholder="用户密码">
+                    <div class="switch" @click="changeShowPassword()">
+                        <i :class="['iconfont','icon-ai-eye',showPassword ? 'show' : '']" ></i>
+                    </div>
                 </section>
                 <section>
-                    <input type="text" placeholder="验证码">
+                    <input v-model="checkcode" type="text" placeholder="验证码">
                     <img src="/imgs/checkcode.svg" alt="" class="checkcode">
                 </section>
             </form>
             <div>
-                <button class="login-btn">登录</button>
+                <button class="login-btn" @click="login()">登录</button>
                 <p class="about">关于我们</p>
             </div>
         </div>
@@ -34,14 +42,29 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
+
 export default {
   data () {
     return {
       loginWay: true,
-      showPassword: false
+      showPassword: true,
+      sendCodeStatus: false,
+      timer: 0,
+      usename: '',
+      password: '',
+      checkcode: '',
+      phoneNumber: '',
+      phoneMsg: ''
     }
   },
+  computed: {
+    ...mapState(['userData'])
+  },
+
   methods: {
+    ...mapMutations(['setUserData']),
+
     // 事件代理，切换登录方式
     changeLoginWay (e) {
       if (e.target.innerHTML === '密码登录') {
@@ -55,7 +78,69 @@ export default {
     },
     goBack () {
       this.$router.go(-1)
+    },
+
+    // 验证手机号码输入
+    checkPhone () {
+      const Reg = /^1\d{10}$/
+      return Reg.test(this.phoneNumber)
+    },
+
+    // 发送验证码
+    async  sendCode () {
+      if (!this.checkPhone()) {
+        this.$toast('请输入正确11位手机号码')
+        return
+      }
+      // 开启定时器
+      this.sendCodeStatus = true
+      if (this.timer) {
+        //  time不为初始0时，停止执行，防止重复开启定时器
+        return
+      }
+      this.timer = 30
+      const time = setInterval(() => {
+        this.timer -= 1
+        if (this.timer === -1) {
+          this.timer = 0
+          clearInterval(time)
+          this.sendCodeStatus = false
+        }
+      }, 1000)
+
+      // 发送请求获取手机验证码
+      const { data } = await this.$http.get('/sendcode?phone=' + this.phoneNumber)
+      if (data.code !== 0) {
+        this.timer = 0
+        clearInterval(time)
+        this.sendCodeStatus = false
+        this.$toast('验证码发送失败')
+      }
+    },
+
+    async login () {
+      // 短信登录
+      if (this.loginWay) {
+        if (!this.checkPhone()) {
+          return this.$toast('请输入正确11位手机号码')
+        }
+        if (!this.phoneMsg) {
+          return this.$toast('请输入手机验证码')
+        }
+        // 登录
+        const { data } = await this.$http.post('/login_sms', { phone: this.phoneNumber, code: this.phoneMsg })
+        if (data.code !== 0) {
+          return this.$toast('手机号或验证码不正确')
+        }
+        console.log('2')
+        this.setUserData(data.data)
+        // 路由跳转
+        this.$router.push('/personal')
+      } else {
+        // 密码登录
+      }
     }
+
   }
 }
 </script>
@@ -76,6 +161,7 @@ export default {
     transform: translate(-50%,-60%);
     padding-top: 20px;
     width: 80%;
+    height:360px;
     text-align: center;
     & h2 {
         color: #02A774;
@@ -90,10 +176,13 @@ export default {
         & li {
             margin: 0 20px;
         }
+        & .li-current {
+            font-weight: bold;
+            color:#02A774;
+        }
     }
     & .login-form {
-        position: relative;
-        input {
+        & input {
         width: 100%;
         margin: 8px 0;
         border: 1px #58D493 solid;
@@ -102,30 +191,44 @@ export default {
         height: 45px;
         box-sizing: border-box;
         font-size: 13px;
-    }
+        }
+        & section {
+            position: relative;
+            & .sendcode {
+                position:absolute;
+                font-size: 12px;
+                right: 5%;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            & .hadsend {
+                color: #666;
+            }
+            & .checkcode {
+                position: absolute;
+                bottom: 8px;
+                right: 5px;
+            }
+
+            & .switch {
+                position: absolute;
+                right: 8%;
+                top: 50%;
+                transform: translateY(-50%);
+                & i {
+                    font-size: 26px;
+                    color: #eee;
+                }
+                & .show {
+                    color: #666;
+                }
+            }
+        }
         & p {
             width: 80%;
             margin: 10px auto;
             color: #666;
             font-size: 13px;
-        }
-        & .checkcode {
-            position: absolute;
-            bottom: 8px;
-            right: 5px;
-        }
-        & .li-current {
-            font-weight: bold;
-        }
-        & .switch {
-            position: absolute;
-            right: 8%;
-            top: 50%;
-            transform: translateY(-50%);
-            & i {
-                font-size: 26px;
-                color: #58D493;
-            }
         }
     }
     .login-btn {

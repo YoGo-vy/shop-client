@@ -4,13 +4,13 @@
             用户中心
         </header>
         <!-- 用户信息 -->
-        <router-link to="/login" class="personal">
+        <router-link :to="userData._id?'/acount':'/login'" class="personal">
             <div class="personal-pic">
             <i class="iconfont icon-personal"></i>
             </div>
             <div class="personal-msg">
-                <strong>登录/注册</strong>
-                <span><i class="iconfont icon-shouji"></i> 暂无绑定手机</span>
+                <strong>{{userData._id?'用户：'+userData.phone:'登录/注册'}}</strong>
+                <span><i class="iconfont icon-shouji"></i>{{userData._id? '绑定手机号'+userData.phone:'暂无绑定手机'}} </span>
             </div>
             <span class="login-icon"><i class="iconfont icon-jiantou"></i></span>
         </router-link>
@@ -48,7 +48,11 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
+  computed: {
+    ...mapState(['userData'])
+  }
 
 }
 </script>

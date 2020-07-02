@@ -8,7 +8,10 @@
         <slot name="input" class="input"></slot>
         <!-- 组件传值 -->
         <span class="title">{{title}}</span>
-        <span class="login" @click="login()">
+        <span v-show="userData._id" class="personal" @click="$router.push('/personal')">
+             <i class="iconfont icon-huiyuan"></i>
+        </span>
+        <span v-show="!userData._id" class="login" @click="login()">
             登录|注册
         </span>
     </header>
@@ -22,7 +25,7 @@ export default {
     title: String
   },
   computed: {
-    ...mapState(['address'])
+    ...mapState(['address', 'userData'])
   },
   methods: {
     login () {
@@ -57,12 +60,16 @@ header {
             color: #F1F1F1;
         }
     }
-    & .login{
+    & .login , .personal{
         line-height: 50px;
         width: 80px;
         font: 18px;
         color: #F1F1F1;
         margin-right: 10px;
+        text-align: center;
+        & i{
+            font-size: 30px;
+        }
     }
     & .title {
         font-size: 18px;
