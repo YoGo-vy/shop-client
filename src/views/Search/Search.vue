@@ -31,8 +31,8 @@ export default {
 <style lang="less" scoped>
 .search {
     display: flex;
-    height: 50px;
-    margin: 10px;
+    height: 40px;
+    margin: 70px 10px 0;
     padding: 0 20px;
     & input {
         flex: 1;

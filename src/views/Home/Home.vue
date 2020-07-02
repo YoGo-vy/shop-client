@@ -8,42 +8,23 @@
             </span>
         </Header>
         <!-- 导航 -->
-        <nav>
-            <ul class="nav">
-                <li class="nav-item">
-                    <img src="/imgs/nav/1.jpg" alt="">
-                    <span>甜点</span>
-                </li>
-                <li class="nav-item">
-                    <img src="/imgs/nav/2.jpg" alt="">
-                    <span>甜点</span>
-                </li>
-                <li class="nav-item">
-                    <img src="/imgs/nav/3.jpg" alt="">
-                    <span>甜点</span>
-                </li>
-                <li class="nav-item">
-                    <img src="/imgs/nav/4.jpg" alt="">
-                    <span>甜点</span>
-                </li>
-                <li class="nav-item">
-                    <img src="/imgs/nav/5.jpg" alt="">
-                    <span>甜点</span>
-                </li>
-                <li class="nav-item">
-                    <img src="/imgs/nav/6.jpg" alt="">
-                    <span>甜点</span>
-                </li>
-                <li class="nav-item">
-                    <img src="/imgs/nav/7.jpg" alt="">
-                    <span>甜点</span>
-                </li>
-                <li class="nav-item">
-                    <img src="/imgs/nav/8.jpg" alt="">
-                    <span>甜点</span>
-                </li>
-            </ul>
+        <nav class="swiper-container">
+            <div class="swiper-wrapper" v-if="categorys.length">
+                <ul class="nav swiper-slide" v-for="(item,index) in cate_ul" :key="index">
+                    <li class="nav-item" v-for="(item2,index2) in item" :key="index2">
+                        <img :src="baseUrl+item2.image_url" alt="">
+                        <span>{{item2.title}}</span>
+                    </li>
+                </ul>
+            </div>
+            <img v-else src="/imgs/nav/nav_back.svg" alt="">
+            <!-- 分页器 -->
+            <div class="swiper-pagination"></div>
+            <!-- 滚动条 -->
+            <div class="swiper-scrollbar"></div>
+
         </nav>
+
         <!-- 主体内容区域 -->
         <article>
             <div class="artical-header">
@@ -52,163 +33,39 @@
                 </span>
                 <span>附近商家</span>
             </div>
-            <div class="list">
-                <div class="list-item">
+            <div class="list" v-if="shops.length" >
+                <div class="list-item" v-for="(item) in shops" :key="item.id" >
                     <div class="item-img">
                         <img src="/imgs/nav/1.jpg" alt="">
                     </div>
                     <ul class="item-msg">
                         <li>
                             <span class="pingpai">品牌</span>
-                            <span>店铺名</span>
+                            <span>{{item.name}}</span>
                         </li>
                         <li class="tag">
-                            <span>保</span>
-                            <span>准</span>
-                            <span>票</span>
+                            <span v-for="(item2,index) in item.supports" :key="index" :style="'color:icon_color'">
+                                {{item2.icon_name}}
+                            </span>
                         </li>
                         <li class="about">
                             <section class="star">***</section>
-                            <span class="pingfen">4.7</span>
-                            <span>月销<span>106</span>单</span>
+                            <span class="pingfen">{{item.rating}}</span>
+                            <span>月销<span>{{item.rating_count}}</span>单</span>
                             <span class="waimai">外卖专送</span>
                         </li>
                         <li class="peisong">
-                            <span>￥<span>20</span>元起送/配送费约￥<span>5</span></span>
+                            <span>￥<span>{{item.float_minimum_order_amount}}</span>元起送/配送费约￥<span>{{item.float_delivery_fee}}</span></span>
                         </li>
                     </ul>
-
                 </div>
-                <div class="list-item">
-                    <div class="item-img">
-                        <img src="/imgs/nav/1.jpg" alt="">
-                    </div>
-                    <ul class="item-msg">
-                        <li>
-                            <span class="pingpai">品牌</span>
-                            <span>店铺名</span>
-                        </li>
-                        <li class="tag">
-                            <span>保</span>
-                            <span>准</span>
-                            <span>票</span>
-                        </li>
-                        <li class="about">
-                            <section class="star">***</section>
-                            <span class="pingfen">4.7</span>
-                            <span>月销<span>106</span>单</span>
-                            <span class="waimai">外卖专送</span>
-                        </li>
-                        <li class="peisong">
-                            <span>￥<span>20</span>元起送/配送费约￥<span>5</span></span>
-                        </li>
-                    </ul>
-
-                </div>
-                <div class="list-item">
-                    <div class="item-img">
-                        <img src="/imgs/nav/1.jpg" alt="">
-                    </div>
-                    <ul class="item-msg">
-                        <li>
-                            <span class="pingpai">品牌</span>
-                            <span>店铺名</span>
-                        </li>
-                        <li class="tag">
-                            <span>保</span>
-                            <span>准</span>
-                            <span>票</span>
-                        </li>
-                        <li class="about">
-                            <section class="star">***</section>
-                            <span class="pingfen">4.7</span>
-                            <span>月销<span>106</span>单</span>
-                            <span class="waimai">外卖专送</span>
-                        </li>
-                        <li class="peisong">
-                            <span>￥<span>20</span>元起送/配送费约￥<span>5</span></span>
-                        </li>
-                    </ul>
-
-                </div>
-                <div class="list-item">
-                    <div class="item-img">
-                        <img src="/imgs/nav/1.jpg" alt="">
-                    </div>
-                    <ul class="item-msg">
-                        <li>
-                            <span class="pingpai">品牌</span>
-                            <span>店铺名</span>
-                        </li>
-                        <li class="tag">
-                            <span>保</span>
-                            <span>准</span>
-                            <span>票</span>
-                        </li>
-                        <li class="about">
-                            <section class="star">***</section>
-                            <span class="pingfen">4.7</span>
-                            <span>月销<span>106</span>单</span>
-                            <span class="waimai">外卖专送</span>
-                        </li>
-                        <li class="peisong">
-                            <span>￥<span>20</span>元起送/配送费约￥<span>5</span></span>
-                        </li>
-                    </ul>
-
-                </div>
-                <div class="list-item">
-                    <div class="item-img">
-                        <img src="/imgs/nav/1.jpg" alt="">
-                    </div>
-                    <ul class="item-msg">
-                        <li>
-                            <span class="pingpai">品牌</span>
-                            <span>店铺名</span>
-                        </li>
-                        <li class="tag">
-                            <span>保</span>
-                            <span>准</span>
-                            <span>票</span>
-                        </li>
-                        <li class="about">
-                            <section class="star">***</section>
-                            <span class="pingfen">4.7</span>
-                            <span>月销<span>106</span>单</span>
-                            <span class="waimai">外卖专送</span>
-                        </li>
-                        <li class="peisong">
-                            <span>￥<span>20</span>元起送/配送费约￥<span>5</span></span>
-                        </li>
-                    </ul>
-
-                </div>
-                <div class="list-item">
-                    <div class="item-img">
-                        <img src="/imgs/nav/1.jpg" alt="">
-                    </div>
-                    <ul class="item-msg">
-                        <li>
-                            <span class="pingpai">品牌</span>
-                            <span>店铺名</span>
-                        </li>
-                        <li class="tag">
-                            <span>保</span>
-                            <span>准</span>
-                            <span>票</span>
-                        </li>
-                        <li class="about">
-                            <section class="star">***</section>
-                            <span class="pingfen">4.7</span>
-                            <span>月销<span>106</span>单</span>
-                            <span class="waimai">外卖专送</span>
-                        </li>
-                        <li class="peisong">
-                            <span>￥<span>20</span>元起送/配送费约￥<span>5</span></span>
-                        </li>
-                    </ul>
-
-                </div>
+            </div>
+            <div class="list" v-else >
+                <ul class="list-item">
+                    <li v-for="(item,index) in 6" :key="index">
+                        <img src="/imgs/shops/shop_back.svg" alt="" />
+                    </li>
+                </ul>
             </div>
         </article>
     </section>
@@ -216,28 +73,84 @@
 
 <script>
 import Header from '../../components/Header/Header'
+import Swiper from 'swiper'
+import '../../../node_modules/swiper/css/swiper.min.css'
+import { mapState } from 'vuex'
 export default {
+  data () {
+    return {
+      baseUrl: 'https://fuss10.elemecdn.com'
+    }
+  },
   components: {
     Header
   },
-  data () {
-    return {
 
+  computed: {
+    ...mapState(['categorys', 'shops']),
+
+    // nav导航轮播效果
+    cate_ul () {
+      const arr = []
+      let arrSmall = []
+      if (this.categorys.length <= 8) {
+        arr.push(this.categorys)
+        return arr
+      }
+      //   拆分数组
+      this.categorys.forEach((item, index) => {
+        arrSmall.push(item)
+        if (arrSmall.length === 8) {
+          arr.push(arrSmall)
+          arrSmall = []
+        }
+        if (index === this.categorys - 1) {
+          arr.push(arrSmall)
+          return arr
+        }
+      })
+      console.log(arr)
+      return arr
     }
   },
   methods: {
     search () {
       this.$router.push('/search')
+    },
+
+    // swiper轮播
+    initSwiper () {
+      this.$nextTick(() => {
+        // 在下一次Dom更新后，创建swiper实例(swiper依赖于绑定Dom节点)
+        return new Swiper('.swiper-container', {
+        // 分页器
+          pagination: {
+            el: '.swiper-pagination'
+          },
+          // 滚动条
+          scrollbar: {
+            el: '.swiper-scrollbar'
+          }
+        })
+      })
     }
+  },
+
+  //  侦听器
+  watch: {
+    // 侦听依赖的store数据初始化后创建swiper
+    categorys () {
+      this.initSwiper()
+    }
+  },
+
+  mounted () {
+    // 页面加载完成创建swiper实例
+    this.initSwiper()
   }
 }
 </script>
 <style lang="less" scoped>
-Header {
-    position: fixed;
-    width: 100%;
-    top: 0;
-}
 nav {
     margin-top: 50px;
 }
@@ -246,7 +159,7 @@ nav {
     flex-wrap: wrap;
     text-align: center;
     border-bottom: 1px #F1F1F1 solid;
-    padding: 10px 5px;
+    padding: 10px 5px 25px;
     & .nav-item {
         display: flex;
         flex-direction: column;
@@ -260,7 +173,7 @@ nav {
 }
 article {
     border-top: 1px #eee solid;
-    margin-top: 10px;
+    margin: 10px 0 50px;
     .artical-header {
     font-size: 16px;
     margin-top: 10px;

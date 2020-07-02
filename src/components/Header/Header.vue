@@ -2,9 +2,10 @@
     <header>
         <span class="location">
             <i class="iconfont icon-dingwei"></i>
+            <span>{{address.city}}</span>
         </span>
         <!-- 组件插槽 -->
-        <slot name="input"></slot>
+        <slot name="input" class="input"></slot>
         <!-- 组件传值 -->
         <span class="title">{{title}}</span>
         <span class="login" @click="login()">
@@ -14,10 +15,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   // 通过props传值
   props: {
     title: String
+  },
+  computed: {
+    ...mapState(['address'])
   },
   methods: {
     login () {
@@ -29,6 +34,10 @@ export default {
 
 <style lang="less" scoped>
 header {
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    top: 0;
     height: 50px;
     background-color: #58D493;
     display: flex;
@@ -36,14 +45,21 @@ header {
     flex-direction: row;
     justify-content: space-around;
     line-height: 50px;
-    & .location i{
-        font-size: 32px;
-        line-height: 50px;
-        margin-left: 10px;
+    & .location {
+        font-size: 12px;
         color: #F1F1F1;
+        text-align: center;
+        width: 80px;
+        & i{
+            font-size: 32px;
+            line-height: 50px;
+            margin-left: 10px;
+            color: #F1F1F1;
+        }
     }
     & .login{
         line-height: 50px;
+        width: 80px;
         font: 18px;
         color: #F1F1F1;
         margin-right: 10px;
@@ -56,6 +72,7 @@ header {
 }
 .search {
     position: relative;
+    flex: 1;
     width: 60%;
     height: 30px;
     line-height: 50px;
@@ -70,7 +87,7 @@ header {
     }
     & .iconfont {
         position: absolute;
-        left: 25px;
+        left: 15%;
     }
 }
 </style>
