@@ -45,13 +45,29 @@
         <div class="service">
              <span><i class="iconfont icon-wuyefuwu"></i>用户服务中心</span>
         </div>
+        <div class="logout" v-show="userData._id">
+             <button @click="logout()">退出登录</button>
+        </div>
     </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   computed: {
     ...mapState(['userData'])
+  },
+  methods: {
+    ...mapMutations(['setUserData']),
+
+    async logout () {
+      const { data } = await this.$http.get('/userinfo')
+      if (data.code !== 0) {
+        return this.$toast('退出错误，请重试')
+      }
+      this.setUserData({})
+      console.log(this.userData)
+      this.$toast('退出成功')
+    }
   }
 
 }
@@ -148,6 +164,19 @@ header {
         font-size: 32px;
         vertical-align: middle;
         margin-right: 10px;
+    }
+}
+.logout {
+    margin-top: 15px;
+    margin: 18px auto;
+    width: 36%;
+    & button {
+        width: 100%;
+        height: 40px;
+        font-size: 18px;
+        border-radius: 10px;
+        background-color: #f5f5f5;
+        color: #02A774;
     }
 }
 </style>

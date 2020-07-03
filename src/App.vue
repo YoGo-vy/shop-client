@@ -21,6 +21,7 @@ export default {
     FooterGuide
   },
   methods: {
+    ...mapMutations(['setAddress', 'setcategorys', 'setshops', 'setUserData']),
 
     // 请求获取定位信息
     async getAddress () {
@@ -49,13 +50,22 @@ export default {
       this.setshops(data.data)
     },
 
-    ...mapMutations(['setAddress', 'setcategorys', 'setshops'])
+    // 根据cookie信息自动请求登录（保存用户登录状态）
+    async loginByCookie () {
+      const { data } = await this.$http.get('/userinfo')
+      if (data.code !== 0) {
+        return this.$toast('尚未登录，请前往登录')
+      }
+      this.$toast('自动登录成功')
+      this.setUserData(data.data)
+    }
   },
 
   created () {
     this.getAddress()
     this.getCategoryList()
     this.getshops()
+    this.loginByCookie()
   }
 }
 </script>
