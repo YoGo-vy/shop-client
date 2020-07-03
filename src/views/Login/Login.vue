@@ -10,7 +10,7 @@
             </ul>
             <form action="" class="login-form" v-show="loginWay">
                 <section>
-                    <input v-model="phoneNumber" type="text" placeholder="请输入手机号">
+                    <input v-focus v-model="phoneNumber" type="text" placeholder="请输入手机号">
                     <span :class="['sendcode',sendCodeStatus?'hadsend':'']" @click="sendCode()" ref="sendCode">
                         {{sendCodeStatus?'已发送('+timer+'s)':'点击发送验证码'}}
                     </span>

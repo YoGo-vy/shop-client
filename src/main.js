@@ -11,6 +11,19 @@ import './plugins/vant'
 // 开发模式反向代理
 axios.defaults.baseURL = '/api'
 
+// 注册全局指令
+Vue.directive('focus', {
+  inserted: function (el) {
+    el.focus()
+  }
+})
+// Vue.directive('focus', {
+//   inserted: function (el) {
+//     // 聚焦元素
+//     el.focus()
+//   }
+// })
+
 // 挂载axios当前Vue原型
 Vue.prototype.$http = axios
 // store.$http = axios

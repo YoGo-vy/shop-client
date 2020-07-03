@@ -14,15 +14,6 @@ import Header from '../../components/Header/Header'
 export default {
   components: {
     Header
-  },
-
-  // 自定义指令
-  directives: {
-    focus: {
-      inserted: function (el) {
-        el.focus()
-      }
-    }
   }
 
 }

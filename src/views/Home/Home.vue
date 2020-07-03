@@ -49,9 +49,10 @@
                             </span>
                         </li>
                         <li class="about">
-                            <section class="star">***</section>
-                            <span class="pingfen">{{item.rating}}</span>
-                            <span>月销<span>{{item.rating_count}}</span>单</span>
+                            <section class="star">
+                                <Star :size="36" :score="item.rating"></Star>
+                            </section>
+                            <span> 月销<span>{{item.rating_count}}</span>单</span>
                             <span class="waimai">外卖专送</span>
                         </li>
                         <li class="peisong">
@@ -73,6 +74,7 @@
 
 <script>
 import Header from '../../components/Header/Header'
+import Star from '../../components/Star'
 import Swiper from 'swiper'
 import '../../../node_modules/swiper/css/swiper.min.css'
 import { mapState } from 'vuex'
@@ -83,7 +85,8 @@ export default {
     }
   },
   components: {
-    Header
+    Header,
+    Star
   },
 
   computed: {
@@ -220,9 +223,6 @@ article {
             font-size: 8px;
             & .star {
                 display: inline-block;
-            }
-            & .pingfen {
-                color:orange
             }
             & .waimai {
                 float: right;

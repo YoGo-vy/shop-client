@@ -13,5 +13,9 @@ export default {
   // 商家列表
   shops: [],
   // 用户信息
-  userData: {}
+  userData: {
+    __v: 0,
+    _id: '5efe295ddfb7c2209cd04ac6',
+    phone: '17607516396'
+  }
 }
