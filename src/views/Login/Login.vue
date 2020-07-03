@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span class="goback" @click="goBack()"><i class="iconfont icon-zuojiantou"></i></span>
+        <span class="goback" @click="goBack()"><i class="iconfont icon-zuojiantou"></i>返回</span>
         <div class="logon">
             <h2>超市外卖</h2>
             <ul class="login-way" @click="changeLoginWay($event)">
@@ -30,7 +30,8 @@
                 </section>
                 <section>
                     <input v-model="checkcode" type="text" placeholder="验证码">
-                    <img src="/imgs/checkcode.svg" alt="" class="checkcode">
+                    <img src="http://localhost:4000/captcha" alt=""
+                    @click="getCaptcha" ref="captcha" class="checkcode">
                 </section>
             </form>
             <div>
@@ -45,14 +46,17 @@
 import { mapState, mapMutations } from 'vuex'
 
 export default {
+  props: {
+    id: String
+  },
   data () {
     return {
       loginWay: true,
       showPassword: true,
       sendCodeStatus: false,
       timer: 0,
-      usename: '',
-      password: '',
+      usename: '666',
+      password: '666',
       checkcode: '',
       phoneNumber: '',
       phoneMsg: ''
@@ -118,7 +122,16 @@ export default {
       }
     },
 
+    // 获取一个新的图片验证码
+    getCaptcha () {
+      // 添加时间戳：每次指定的src要不一样
+      this.$refs.captcha.src = 'http://localhost:4000/captcha?time=' + Date.now()
+    },
+
     async login () {
+      // 响应数据
+      let res = {}
+
       // 短信登录
       if (this.loginWay) {
         if (!this.checkPhone()) {
@@ -132,26 +145,52 @@ export default {
         if (data.code !== 0) {
           return this.$toast('手机号或验证码不正确')
         }
-        console.log('2')
-        this.setUserData(data.data)
-        // 路由跳转
-        this.$router.push('/personal')
+        res = data
       } else {
         // 密码登录
+        if (!this.usename) {
+          return this.$toast('错误：用户名为空')
+        }
+        if (!this.password) {
+          return this.$toast('错误：密码为空')
+        }
+        if (!this.checkcode) {
+          return this.$toast('错误：验证码为空')
+        }
+        // 登录
+        const { data } = await this.$http.post('/login_pwd', { name: this.usename, pwd: this.password, captcha: this.checkcode })
+        if (data.code !== 0) {
+          // 更新验证码
+          this.getCaptcha()
+          return this.$toast('验证码错误，请重新输入')
+        }
+        res = data
       }
+      // store管理用户信息；路由跳转
+      this.setUserData(res.data)
+      this.$router.push('/personal')
     }
+  },
 
+  mounted () {
+    this.getCaptcha()
+    // 判断用户选择登录方式
+    if (this.id !== '1') {
+      this.loginWay = false
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
 .goback {
+  height: 18px;
     position: fixed;
-    top: 10px;
-    left: 10px;
+    top: 25px;
+    left: 25px;
+    line-height: 18px;
     & i {
-        font-size: 22px;
+        font-size: 18px;
     }
 }
 .logon {
@@ -179,6 +218,7 @@ export default {
         & .li-current {
             font-weight: bold;
             color:#02A774;
+            border-bottom:2px solid #02a774;
         }
     }
     & .login-form {

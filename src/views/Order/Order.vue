@@ -5,7 +5,7 @@
         </header>
         <div class="login">
             <div class="bg"></div>
-            <button @click="$router.push('/login')" v-show="!userData._id">点击登录查看</button>
+            <button @click="$router.push('/login/1')" v-show="!userData._id">点击登录查看</button>
         </div>
         <div v-show="userData._id">
             <ul>

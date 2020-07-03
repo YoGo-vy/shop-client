@@ -56,7 +56,6 @@ export default {
       if (data.code !== 0) {
         return this.$toast('尚未登录，请前往登录')
       }
-      this.$toast('自动登录成功')
       this.setUserData(data.data)
     }
   },

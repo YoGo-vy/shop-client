@@ -34,7 +34,7 @@
                 <span>附近商家</span>
             </div>
             <div class="list" v-if="categorys.length" >
-                <div class="list-item" v-for="(item) in shops" :key="item.id">
+                <div @click="$router.push('/details')" class="list-item" v-for="(item) in shops" :key="item.id">
                     <div class="item-img">
                         <img src="/imgs/nav/1.jpg" alt="">
                     </div>
@@ -74,7 +74,7 @@
 
 <script>
 import Header from '../../components/Header/Header'
-import Star from '../../components/Star'
+import Star from '../../components/Star/Star'
 import Swiper from 'swiper'
 import '../../../node_modules/swiper/css/swiper.min.css'
 import { mapState } from 'vuex'

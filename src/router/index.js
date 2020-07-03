@@ -7,6 +7,10 @@ import Order from '../views/Order/Order.vue'
 import Personal from '../views/Personal/Personal.vue'
 import Login from '../views/Login/Login'
 import Acount from '../views/Personal/Acount'
+import Details from '../views/Details/Details'
+import Foods from '../views/Details/Details/Foods'
+import Comments from '../views/Details/Details/Comments'
+import Shopinfo from '../views/Details/Details/Shopinfo'
 
 // 挂载Router
 Vue.use(Router)
@@ -18,8 +22,18 @@ const router = new Router({
     { path: '/search', component: Search, meta: { showFooter: true } },
     { path: '/order', component: Order, meta: { showFooter: true } },
     { path: '/personal', component: Personal, meta: { showFooter: true } },
-    { path: '/login', component: Login },
-    { path: '/acount', component: Acount }
+    { path: '/login/:id', component: Login, props: true },
+    { path: '/acount', component: Acount },
+    {
+      path: '/details',
+      component: Details,
+      redirect: '/foods',
+      children: [
+        { path: '/foods', component: Foods },
+        { path: '/comments', component: Comments },
+        { path: '/shopinfo', component: Shopinfo }
+      ]
+    }
   ]
 })
 export default router

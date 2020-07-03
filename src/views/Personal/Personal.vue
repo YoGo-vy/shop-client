@@ -4,13 +4,17 @@
             用户中心
         </header>
         <!-- 用户信息 -->
-        <router-link :to="userData._id?'/acount':'/login'" class="personal">
+        <router-link :to="userData._id?'/acount':'/login/1'" class="personal">
             <div class="personal-pic">
             <i class="iconfont icon-personal"></i>
             </div>
-            <div class="personal-msg">
-                <strong>{{userData._id?'用户：'+userData.phone:'登录/注册'}}</strong>
-                <span><i class="iconfont icon-shouji"></i>{{userData._id? '绑定手机号'+userData.phone:'暂无绑定手机'}} </span>
+            <div class="personal-msg" v-show="userData._id">
+                <Strong >{{userData.phone?userData.phone:userData.name}}</Strong>
+                <span><i class="iconfont icon-shouji"></i>{{userData.phone? '绑定手机号'+userData.phone:'暂无绑定手机'}} </span>
+            </div>
+            <div class="personal-msg" v-show="!userData._id">
+                <strong v-show="!userData._id">登录/注册</strong>
+                <span><i class="iconfont icon-shouji"></i>暂无绑定手机'</span>
             </div>
             <span class="login-icon"><i class="iconfont icon-jiantou"></i></span>
         </router-link>
@@ -60,12 +64,20 @@ export default {
     ...mapMutations(['setUserData']),
 
     async logout () {
+      const res = await this.$dialog.confirm({
+        title: '退出',
+        message: '退出登录'
+      }).then((confirm) => {
+        return confirm
+      }).catch((cancel) => {
+        return cancel
+      })
+      if (res === 'cancel') return
       const { data } = await this.$http.get('/userinfo')
       if (data.code !== 0) {
         return this.$toast('退出错误，请重试')
       }
       this.setUserData({})
-      console.log(this.userData)
       this.$toast('退出成功')
     }
   }
