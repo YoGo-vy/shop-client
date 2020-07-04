@@ -5,10 +5,12 @@ import store from './store/index'
 import axios from 'axios'
 import './plugins/vant'
 
+// 模拟后台数据
+import './mock/mockServer'
+
 // 配置axios
 // axios.defaults.baseURL = 'http://localhost:4000'
-
-// 开发模式反向代理
+// 开发环境请求反向代理
 axios.defaults.baseURL = '/api'
 
 // 注册全局指令
@@ -17,12 +19,6 @@ Vue.directive('focus', {
     el.focus()
   }
 })
-// Vue.directive('focus', {
-//   inserted: function (el) {
-//     // 聚焦元素
-//     el.focus()
-//   }
-// })
 
 // 挂载axios当前Vue原型
 Vue.prototype.$http = axios

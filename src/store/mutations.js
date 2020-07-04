@@ -19,5 +19,10 @@ export default {
   // 存储用户信息
   setUserData (state, userData) {
     state.userData = userData
+  },
+
+  // 存储当前商家信息
+  setShopinfo (state, shopInfo) {
+    state.shopInfo = shopInfo
   }
 }

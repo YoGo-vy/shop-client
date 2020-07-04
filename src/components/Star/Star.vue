@@ -66,6 +66,7 @@ export default {
 
 }
 .star36 {
+    width: 100px;
     & .item{
         width: 15px;
         height: 15px;

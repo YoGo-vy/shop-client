@@ -6,7 +6,7 @@
         <!-- 用户信息 -->
         <router-link :to="userData._id?'/acount':'/login/1'" class="personal">
             <div class="personal-pic">
-            <i class="iconfont icon-personal"></i>
+                <i class="iconfont icon-personal"></i>
             </div>
             <div class="personal-msg" v-show="userData._id">
                 <Strong >{{userData.phone?userData.phone:userData.name}}</Strong>

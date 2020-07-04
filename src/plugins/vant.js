@@ -3,7 +3,9 @@ import {
   Toast,
   Dialog,
   Area,
-  Button
+  Button,
+  DropdownMenu,
+  DropdownItem
 } from 'vant'
 
 //  $toast
@@ -12,3 +14,5 @@ Vue.use(Toast)
 Vue.use(Dialog)
 Vue.use(Area)
 Vue.use(Button)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
