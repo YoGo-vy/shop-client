@@ -12,7 +12,7 @@ import Mock from 'mockjs'
 import data from './data.json'
 
 // // 商品列表
-Mock.mock('/api/foods', { code: 0, data: data.goods })
+Mock.mock('/api/goods', { code: 0, data: data.goods })
 // 评论列表
 Mock.mock('/api/comments', { code: 0, data: data.ratings })
 // 商家信息

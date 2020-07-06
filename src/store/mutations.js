@@ -24,5 +24,10 @@ export default {
   // 存储当前商家信息
   setShopinfo (state, shopInfo) {
     state.shopInfo = shopInfo
+  },
+
+  // 存储商品列表数据
+  setGoods (state, goods) {
+    state.goods = goods
   }
 }

@@ -18,5 +18,8 @@ export default {
     // _id: '5efe295ddfb7c2209cd04ac6',
     // phone: '17607516396'
   },
-  shopInfo: {}
+  // 商家信息
+  shopInfo: {},
+  // 商品列表
+  goods: []
 }

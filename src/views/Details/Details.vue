@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <div class="shopheader">
           <!-- 头部背景，logo -->
           <header class="bg" :style="'background:url('+shopInfo.bgImg+')'">
@@ -125,9 +125,10 @@ export default {
   data () {
     return {
       // 路由链接
-      link: [{ desc: '点餐', path: '/foods' },
+      link: [{ desc: '点餐', path: '/goods' },
         { desc: '评价', path: '/comments' },
-        { desc: '商家', path: '/shopinfo' }],
+        { desc: '商家', path: '/shopinfo' }
+      ],
       // 路由链接切换
       currentIndex: 0,
       // 展示商家详细信息
@@ -167,7 +168,7 @@ export default {
 
 .bg {
   position: relative;
-  height: 68px;
+  height: 60px;
   background: pink;
   & .goback {
     position: absolute;
@@ -196,10 +197,9 @@ export default {
 }
 .shop-msg ul {
   width: 70%;
-  margin: 16px auto;
+  margin: 16px auto 10px;
   & li {
     text-align: center;
-    margin: 10px 0;
   }
   & .pingpai {
     background-color: orange;
@@ -218,7 +218,7 @@ export default {
     margin: 0 auto;
   }
   & .about {
-      margin-top: 10px;
+      margin-top: 8px;
       font-size: 8px;
       & .waimai {
           margin: 0 2px;
@@ -250,10 +250,15 @@ export default {
 }
 .router_link {
   display: flex;
-  justify-content: center;
-  margin-top: 10px;
+  justify-content: space-around;
+  width: 80%;
+  font-size: 15px;
+  margin: 10px auto 5px;
+  border-bottom: 1px solid #eee;
   & .link {
-    flex: 1;
+    // flex: 1;
+    width: 25%;
+    padding-bottom: 5px;
     text-align: center;
     color: #7E8C8D;
   }

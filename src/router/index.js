@@ -8,7 +8,7 @@ import Personal from '../views/Personal/Personal.vue'
 import Login from '../views/Login/Login'
 import Acount from '../views/Personal/Acount'
 import Details from '../views/Details/Details'
-import Foods from '../views/Details/Details/Foods'
+import Goods from '../views/Details/Details/Goods'
 import Comments from '../views/Details/Details/Comments'
 import Shopinfo from '../views/Details/Details/Shopinfo'
 
@@ -27,9 +27,9 @@ const router = new Router({
     {
       path: '/details',
       component: Details,
-      redirect: '/foods',
+      redirect: 'goods',
       children: [
-        { path: '/foods', component: Foods },
+        { path: '/goods', component: Goods },
         { path: '/comments', component: Comments },
         { path: '/shopinfo', component: Shopinfo }
       ]
