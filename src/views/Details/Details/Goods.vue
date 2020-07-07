@@ -2,7 +2,8 @@
     <div class="goods" ref="goods">
       <aside class="aside">
         <ul>
-          <li v-for="(item,index) in goods" :key="index">
+          <li v-for="(item,index) in goods" :key="index"
+          :class="currentIndex==index?'current-li':''" @click="changeCurrent(index)">
             {{item.name}}
           </li>
         </ul>
@@ -10,7 +11,7 @@
 
       <article class="wrapper">
         <!-- 商品分类 -->
-        <ul class="content">
+        <ul class="content" ref="wrapper_content">
           <li v-for="(item, index) in goods" :key="index">
             <div class="goods-msg">{{item.name}}</div>
 
@@ -46,10 +47,29 @@ import BScroll from 'better-scroll'
 import { mapState, mapMutations } from 'vuex'
 
 export default {
-  computed: {
-    ...mapState(['goods'])
-
+  data () {
+    return {
+      // 保存右侧商品列表每项li的top值
+      tops: [],
+      // 保存当前的滑动Y轴位移
+      scrollY: 0
+    }
   },
+  computed: {
+    ...mapState(['goods']),
+
+    // 计算当前滑动位置li的currentIndex
+    currentIndex () {
+      const current = this.tops.findIndex((item, index, arr) => {
+        if (index >= arr.length - 1) {
+          return this.scrollY >= item
+        }
+        return this.scrollY >= item && this.scrollY < arr[index + 1]
+      })
+      return current
+    }
+  },
+
   methods: {
     ...mapMutations(['setGoods']),
 
@@ -59,28 +79,63 @@ export default {
       this.setGoods(data.data)
     },
 
-    // 使用bscoll插件
+    // 1.使用BScroll插件
     initBscoll () {
-      const wrapper = new BScroll('.wrapper')
-      const aside = new BScroll('.aside')
-      return { aside, wrapper }
+      // 添加到当前组件
+      this.wrapper = new BScroll('.wrapper', {
+        scrollY: true,
+        // 默认false：阻止浏览器的原生 click 事件
+        click: true,
+        // 派发scroll事件
+        probeType: 3
+      })
+      this.asideWrapper = new BScroll('.aside', {
+        scrollY: true,
+        click: true
+      })
+
+      // 绑定scorll事件，对象结构实际参数x,y值
+      this.wrapper.on('scroll', ({ x, y }) => {
+        this.scrollY = Math.abs(y)
+      })
+
+      // probeType: 3 --性能消耗大
+      // this.wrapper.on('scrollEnd', ({ x, y }) => {
+      //   this.scrollY = Math.abs(y)
+      // })
     },
 
-    // 态设置Bscoll区域的高度,屏幕大小发生改变自适应
+    // 2.动态设置Bscoll区域的高度,屏幕大小发生改变自适应
     setBscoll () {
       const goods = this.$refs.goods
       goods.style.height = window.innerHeight - goods.offsetTop - 50 + 'px'
       window.addEventListener('resize', () => {
         goods.style.height = window.innerHeight - goods.offsetTop - 50 + 'px'
       })
-    }
+    },
 
+    //  3.初始化右侧滑动区域的所有li的顶点坐标数组:(只初始化执行一次设置tops)
+    initTops () {
+      this.tops = []
+      const lis = this.$refs.wrapper_content.children
+      Array.from(lis).forEach((item) => {
+        this.tops.push(item.offsetTop)
+      })
+    },
+
+    // 左侧aside点击改变current
+    changeCurrent (index) {
+      const y = -this.tops[index]
+      this.wrapper.scrollTo(0, y)
+    }
   },
   watch: {
     // 滑动组件使用前提：1.当依赖的store数据初始化完成；2.页面Dom结构加载完成
     goods (value) {
       this.$nextTick(() => {
         this.initBscoll()
+        this.setBscoll()
+        this.initTops()
       })
     }
   },
@@ -88,13 +143,14 @@ export default {
     // 获取商品列表
     this.getGoods()
 
-    // created()时Dom尚未生成
+    // created()触发时，Dom尚未生成
     // this.initBscoll()
     // this.setBscoll()
   },
   mounted () {
     this.setBscoll()
     this.initBscoll()
+    this.initTops()
   }
 }
 </script>
@@ -104,23 +160,24 @@ export default {
   font-size: 13px;
   margin-top: 6px;
   display: flex;
+  border-top: 1px solid #eee;
   & aside {
     width: 25%;
+    padding-top: 33px;
     background: #F3F5F7;
     & ul {
-      width: 70%;
       margin: 3px auto;
       & li {
         height: 55px;
         line-height: 55px;
         text-align: center;
         border-bottom: 2px solid #eee;
-        & .current-li {
-          border-bottom: none;
-          background: #000;
-          color: #93999F;
-        }
+        color: #93999F;
       }
+      & .current-li {
+          background: #fff;
+          color: #02A774;
+        }
 
     }
   }
@@ -134,9 +191,7 @@ export default {
         text-align: center;
         background: #F3F5F7;
         color: #93999F;
-        }
-        & .current-li {
-         border-left: 2px solid #eee;
+        border-left: 2px solid #ccc;
         }
       }
     }
@@ -190,5 +245,11 @@ export default {
 .aside {
   height: 100%;
 }
+
 // 实现商品列表滑动
+.content {
+  // 使用offsetTop获取lis的tops值
+  position: relative;
+}
+
 </style>
