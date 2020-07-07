@@ -1,38 +1,19 @@
 <template>
-    <div class="container">
-        <!-- 评分 -->
-        <div class="grade">
-            <div class="score">
-                <span>{{shopInfo.score}}</span>
-                <span>综合评分</span>
-                <span>高于周边商家99%</span>
-            </div>
-            <div class="star">
-                <div>
-                    <span>服务态度：</span>
-                    <Star class="Star" :score='shopInfo.serviceScore' :size='36' />
-                </div>
-                <div>
-                    <span>商品评分：</span>
-                    <Star class="Star" :score='shopInfo.foodScore' :size='36' />
-                </div>
-            </div>
-        </div>
-
-        <!-- 评价 -->
-        <div class="comment">
+    <div>
+        <div class="type">
             <div class="group">
-                <button @click="showComment(0)" :class="currentIndex==0?'btn-current':''">全部{{commentlist.length}}</button>
-                <button @click="showComment(1)" :class="currentIndex==1?'btn-current':''">满意{{goodComments.length}}</button>
-                <button @click="showComment(2)" :class="currentIndex==2?'btn-current':''">差评{{badComments.length}}</button>
+                <button @click="showComment(0)" :class="currentIndex==0?'btn-current':''">全部 {{commentlist.length}}</button>
+                <button @click="showComment(1)" :class="currentIndex==1?'btn-current':''">满意 {{goodComments.length}}</button>
+                <button @click="showComment(2)" :class="currentIndex==2?'btn-current':''">差评 {{badComments.length}}</button>
             </div>
             <div>
                 <van-checkbox icon-size="16px" class="checkbox"
-                checked-color="#07c160"
-                v-model="showCommentsWithText">
+                checked-color="#07c160" v-model="showCommentsWithText">
                 只看有内容的评价</van-checkbox>
-
             </div>
+        </div>
+                <!-- 评价 -->
+        <div class="comment comments-container">
             <ul class="context">
                 <li class="comment-item" v-for="(item, index) in commentsType" :key="index">
                     <!-- 每一条评论内容 -->
@@ -48,7 +29,7 @@
                         <li>
                             <p>{{item.text}}</p>
                         </li>
-                         <li>
+                        <li>
                             <span><i class="iconfont icon-tuijian"></i></span>
                             <span v-for="(item2,index2) in item.recommend" :key="index2">{{item2}}</span>
                         </li>
@@ -60,21 +41,20 @@
 </template>
 
 <script>
-import Star from '../../../components/Star/Star'
 import { mapState, mapMutations } from 'vuex'
+import Star from '../../../components/Star/Star'
 export default {
+  components: {
+    Star
+  },
   data () {
     return {
       currentIndex: 0,
-      showCommentsWithText: false,
+      showCommentsWithText: true,
       //  当前显示评论（是否包含内容）
       commentlist: []
     }
   },
-  components: {
-    Star
-  },
-
   methods: {
     ...mapMutations(['setComments']),
 
@@ -85,21 +65,27 @@ export default {
 
     // init初始化commentlist：默认为显示所有评论
     initcommentlist () {
-      this.commentlist = this.comments
+      this.commentlist = this.comments.filter((item) => {
+        return item.text !== '' && item.text.length > 0
+      })
       this.currentIndex = 0
-      this.showCommentsWithText = false
+      this.showCommentsWithText = true
     },
 
     // 创建commentBscroll
     initCommentBscroll () {
-      this.commentBscroll = new this.$bscroll('.container', {
+      this.commentBscroll = new this.$bscroll('.comments-container', {
         click: true
       })
     },
     // 动态设置commentBscroll高度
-    setHeight () {
-    //   const container = document.querySelector('.container')
-    //   container.height
+    setCommentBscoll () {
+      const container = document.querySelector('.comments-container')
+      container.style.height = window.innerHeight - container.offsetTop + 'px'
+      window.removeEventListener('resize', () => { console.log('11') })
+      window.addEventListener('resize', () => {
+        container.style.height = window.innerHeight - container.offsetTop + 'px'
+      })
     }
   },
 
@@ -136,18 +122,20 @@ export default {
   watch: {
     //  store的comments数据初始化，或数发生改变时，初始化/重置commentlist
     comments () {
+      // 初始化Bscroll实例
+      this.initCommentBscroll()
+      this.setCommentBscoll()
       this.initcommentlist()
     },
 
     // 侦听：显示评论是否带内容
     showCommentsWithText () {
-      if (!this.showCommentsWithText) {
-        this.commentlist = this.comments
-      } else {
+      if (this.showCommentsWithText) {
         this.commentlist = this.comments.filter((item) => {
           return item.text !== '' && item.text.length > 0
         })
-        console.log(this.commentlist.length)
+      } else {
+        this.commentlist = this.comments
       }
     }
   },
@@ -156,76 +144,53 @@ export default {
     const { data } = await this.$http.get('/comments')
     if (data.code !== 0) return this.$taost('获取评论列表失败')
     this.setComments(data.data)
+  },
+  mounted () {
+    // 初始化Bscroll实例
+    this.initCommentBscroll()
+    this.setCommentBscoll()
   }
 
 }
 </script>
 
 <style lang="less" scoped>
-.containe {
-    background: #eee;
+.comments-container {
+    // background: #EDEDED;
+    height: 300px;
 }
-.grade {
-    border-top: 1px solid #eee;
-    margin-top: 6px;
+
+.type {
     display: flex;
-    font-size: 13px;
-    padding: 10px 0;
-    & .score {
-        height: 70px;
-        width: 40%;
-        border-right: 1px solid #eee;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
-        & span:first-child {
-            font-size: 20px;
-            color: orange;
-        }
-         & span:nth-child(3) {
-            font-size: 10px;
-            color: #ccc;
-        }
+    flex-direction: column;
+    align-items: center;
+    margin: 6px 0;
+}
+.group {
+    display: flex;
+    justify-content: flex-start;
+    & button {
+        margin: 8px;
+        color: #fff;
+        font-size: 10px;
+        padding: 6px;
+        border-radius: 5px;
+        background: #ccc;
     }
-    & .star {
-        padding-left: 15px;
-        height: 70px;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: space-around;
-        & .Star {
-            margin-left: 30px;
-            margin: 2px 30px;
-        }
+    & .btn-current {
+        background: #58D493;
     }
+}
+.checkbox {
+    font-size: 10px;
 }
 .comment {
     border-top: 1px solid #ccc;
     padding: 10px 30px;
     font-size: 13px;
-    & .group {
-        display: flex;
-        justify-content: flex-start;
-        & button {
-            margin: 5px;
-            color: #fff;
-            font-size: 10px;
-            padding: 5px;
-            border-radius: 5px;
-            background: #ccc;
-        }
-        & .btn-current {
-            background: #58D493;
-        }
-    }
-    & .checkbox {
-        font-size: 10px;
-    }
+    overflow: hidden;
     & .context {
-        margin-top: 5px;
+        padding-top: 5px;
     }
     & .comment-item {
         overflow: hidden;

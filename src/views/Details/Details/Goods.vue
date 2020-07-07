@@ -108,6 +108,8 @@ export default {
     setBscoll () {
       const goods = this.$refs.goods
       goods.style.height = window.innerHeight - goods.offsetTop - 50 + 'px'
+      // 防止多次为window绑定同一个事件
+      window.removeEventListener('resize', () => {})
       window.addEventListener('resize', () => {
         goods.style.height = window.innerHeight - goods.offsetTop - 50 + 'px'
       })
