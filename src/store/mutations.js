@@ -29,5 +29,10 @@ export default {
   // 存储商品列表数据
   setGoods (state, goods) {
     state.goods = goods
+  },
+
+  // 保存商家评论列表
+  setComments (state, comments) {
+    state.comments = comments
   }
 }

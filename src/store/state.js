@@ -21,5 +21,7 @@ export default {
   // 商家信息
   shopInfo: {},
   // 商品列表
-  goods: []
+  goods: [],
+  // 商家评论列表
+  comments: []
 }

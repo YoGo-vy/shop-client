@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import BScroll from 'better-scroll'
 import { mapState, mapMutations } from 'vuex'
 
 export default {
@@ -82,14 +81,14 @@ export default {
     // 1.使用BScroll插件
     initBscoll () {
       // 添加到当前组件
-      this.wrapper = new BScroll('.wrapper', {
+      this.wrapper = new this.$bscroll('.wrapper', {
         scrollY: true,
         // 默认false：阻止浏览器的原生 click 事件
         click: true,
         // 派发scroll事件
         probeType: 3
       })
-      this.asideWrapper = new BScroll('.aside', {
+      this.asideWrapper = new this.$bscroll('.aside', {
         scrollY: true,
         click: true
       })

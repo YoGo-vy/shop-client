@@ -58,6 +58,7 @@ export default {
       }
       this.setUserData(data.data)
     }
+
   },
 
   created () {
