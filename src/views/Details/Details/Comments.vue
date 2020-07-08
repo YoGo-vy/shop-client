@@ -122,10 +122,10 @@ export default {
   watch: {
     //  store的comments数据初始化，或数发生改变时，初始化/重置commentlist
     comments () {
-      // 初始化Bscroll实例
-      this.initCommentBscroll()
-      this.setCommentBscoll()
-      this.initcommentlist()
+      this.$nextTick(() => {
+        this.setCommentBscoll()
+        this.initcommentlist()
+      })
     },
 
     // 侦听：显示评论是否带内容
@@ -145,10 +145,10 @@ export default {
     if (data.code !== 0) return this.$taost('获取评论列表失败')
     this.setComments(data.data)
   },
+
   mounted () {
     // 初始化Bscroll实例
     this.initCommentBscroll()
-    this.setCommentBscoll()
   }
 
 }
@@ -175,10 +175,10 @@ export default {
         font-size: 10px;
         padding: 6px;
         border-radius: 5px;
-        background: #ccc;
+        background: #DBDDDF;
     }
     & .btn-current {
-        background: #58D493;
+        background: #02A774;
     }
 }
 .checkbox {

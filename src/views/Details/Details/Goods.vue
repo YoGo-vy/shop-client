@@ -29,7 +29,9 @@
                   <li>月销 {{item2.sellCount}} 份 <span class="haoping">好评率 {{item2.rating}}</span></li>
                   <li>
                     <span>￥{{item2.price}}</span>
-                    <span class="addcar">+</span>
+                    <span class="addcar" >
+                      <AddCar :goods='item2'>+</AddCar>
+                    </span>
                   </li>
                 </ul>
               </li>
@@ -44,6 +46,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import AddCar from '../../../components/AddCar/AddCar'
 
 export default {
   data () {
@@ -54,13 +57,16 @@ export default {
       scrollY: 0
     }
   },
+  components: {
+    AddCar
+  },
   computed: {
     ...mapState(['goods']),
 
     // 计算当前滑动位置li的currentIndex
     currentIndex () {
       const current = this.tops.findIndex((item, index, arr) => {
-        if (index >= arr.length - 1) {
+        if (index === arr.length - 1) {
           return this.scrollY >= item
         }
         return this.scrollY >= item && this.scrollY < arr[index + 1]
@@ -81,6 +87,7 @@ export default {
     // 1.使用BScroll插件
     initBscoll () {
       // 添加到当前组件
+      if (this.wrapper) return
       this.wrapper = new this.$bscroll('.wrapper', {
         scrollY: true,
         // 默认false：阻止浏览器的原生 click 事件
@@ -127,14 +134,14 @@ export default {
     // 左侧aside点击改变current
     changeCurrent (index) {
       const y = -this.tops[index]
-      this.wrapper.scrollTo(0, y)
+      this.scrollY = y
+      this.wrapper.scrollTo(0, y, 500)
     }
   },
   watch: {
     // 滑动组件使用前提：1.当依赖的store数据初始化完成；2.页面Dom结构加载完成
     goods (value) {
       this.$nextTick(() => {
-        this.initBscoll()
         this.setBscoll()
         this.initTops()
       })
@@ -143,15 +150,9 @@ export default {
   created () {
     // 获取商品列表
     this.getGoods()
-
-    // created()触发时，Dom尚未生成
-    // this.initBscoll()
-    // this.setBscoll()
   },
   mounted () {
-    this.setBscoll()
     this.initBscoll()
-    this.initTops()
   }
 }
 </script>
@@ -233,7 +234,7 @@ export default {
     }
     & .addcar {
       float: right;
-      margin-right: 20px;
+      margin-right: 10px;
     }
   }
 }

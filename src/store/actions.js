@@ -7,4 +7,10 @@ export default {
 //     if (data.code !== 0) return '获取商品列表失败'
 //     context.commit('setFoods', data.data)
 //   }
+
+  // store存储用户购物车，添加购物车商品数量
+  asyncAddcar (context, params) {
+    context.commit('setShopCar', params)
+  }
+
 }

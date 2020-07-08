@@ -124,7 +124,7 @@ export default {
     initSwiper () {
       this.$nextTick(() => {
         // 在下一次Dom更新后，创建swiper实例(swiper依赖于绑定Dom节点)
-        return new Swiper('.swiper-container', {
+        this.swiper = new Swiper('.swiper-container', {
         // 分页器
           pagination: {
             el: '.swiper-pagination'

@@ -23,5 +23,8 @@ export default {
   // 商品列表
   goods: [],
   // 商家评论列表
-  comments: []
+  comments: [],
+
+  // 购物车商品信息保存:[{},{},{}]
+  shopCar: []
 }
