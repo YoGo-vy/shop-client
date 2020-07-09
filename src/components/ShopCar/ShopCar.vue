@@ -1,7 +1,7 @@
 <template>
     <div>
-        <ul class="shopcar" @click="showShopCarList()">
-            <li>
+        <ul class="shopcar">
+            <li @click="showShopCarList()">
                 <div class="car">
                     <div class="carIcon">
                         <i class="iconfont icon-tianchongxing-"></i>
@@ -9,19 +9,19 @@
                     <div class="acount">{{total.acount}}</div>
                 </div>
             </li>
-            <li>
+            <li @click="showShopCarList()">
                 <span>共计 ￥{{total.money}}</span>
                 <span>另需配送费用￥{{4}}元</span>
             </li>
-            <li>
-                <span v-show="total.money<30">还差{{Math.abs(total.money-30)}}元起送</span>
-
-                <span class="limit">满30元起送</span>
+            <li :class="['submit',total.money>=30?'on':'']" >
+                <span v-if="total.money<30">还差{{Math.abs(total.money-30)}}元起送</span>
+                <span class="pay" v-else @click="$router.push('/shopcarcenter')">结算</span>
+                <span>满30元起送</span>
             </li>
         </ul>
         <!-- 购物车列表展示 -->
         <van-action-sheet v-model="showShopCar" title="购物车列表"
-        class="shopCarlist" :cancel=empty()>
+        class="shopCarlist">
             <div class="content">
                 <span class="msg" v-if="!shopCar.length">当前购物车为空</span>
                 <ul v-else>
@@ -64,12 +64,6 @@ export default {
   methods: {
     showShopCarList () {
       this.showShopCar = !this.showShopCar
-    },
-    getContainer () {
-      return document.querySelector('.shopcar')
-    },
-    empty () {
-      console.log(1)
     }
   }
 
@@ -88,7 +82,7 @@ export default {
     width: 100%;
     z-index: 9999;
     & li:first-child {
-        width:20%;
+        width:30%;
         & .car {
             position: relative;
             width: 60px;
@@ -124,7 +118,7 @@ export default {
     }
     & li:nth-child(2),
     li:nth-child(3) {
-        width: 45%;
+        width: 40%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -137,10 +131,17 @@ export default {
         }
 
     }
-    & li:nth-child(3) {
+    & .submit {
         width: 35%;
         background: #2B333B;
         align-items: center;
+    }
+    & .on {
+        background: #00B43C;
+        & .pay {
+            font-size: 16px;
+            font-weight: bold;
+        }
     }
 }
 .shopCarlist {

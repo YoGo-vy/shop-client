@@ -17,7 +17,7 @@ export default {
   data () {
     return {
       list: [{ path: '/home', icon: 'icon-U', desc: '外卖美食' },
-        { path: '/search', icon: 'icon-sousuo-', desc: '搜索商家' },
+        { path: '/shopcarcenter', icon: 'icon-tianchongxing-', desc: '购物车' },
         { path: '/personal', icon: 'icon-personal', desc: '个人中心' }
       ]
     }

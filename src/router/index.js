@@ -12,6 +12,7 @@ import Goods from '../views/Details/Details/Goods'
 import Comments from '../views/Details/Details/Comments'
 import Shopinfo from '../views/Details/Details/Shopinfo'
 import Integral from '../views/Integral/Integral'
+import ShopCarCenter from '../views/ShopCarCenter/ShopCarCenter'
 
 // 挂载Router
 Vue.use(Router)
@@ -20,8 +21,9 @@ const router = new Router({
   routes: [
     { path: '/', redirect: '/home' },
     { path: '/home', component: Home, meta: { showFooter: true } },
-    { path: '/search', component: Search, meta: { showFooter: true } },
+    { path: '/shopcarcenter', component: ShopCarCenter, meta: { showFooter: true } },
     { path: '/personal', component: Personal, meta: { showFooter: true } },
+    { path: '/search', component: Search },
     { path: '/order', component: Order, meta: { showFooter: true } },
     { path: '/integral', component: Integral, meta: { showFooter: true } },
     { path: '/login/:id', component: Login, props: true },

@@ -2,7 +2,7 @@
     <section>
         <!-- 头部 -->
         <Header>
-            <span class="search" slot='input' @click="search()">
+            <span class="search" slot='center' @click="search()">
                 <i class="iconfont icon-search"></i>
                 <input type="text" placeholder="查找附近商家" class="searche-input">
             </span>
@@ -156,6 +156,26 @@ export default {
 nav {
     margin-top: 50px;
 }
+.search {
+    position: relative;
+    flex: 1;
+    width: 60%;
+    height: 30px;
+    line-height: 50px;
+    font-size: 12px;
+    text-align: center;
+    & input {
+        height: 100%;
+        width: 70%;
+        border-radius: 15px;
+        background-color: #fff;
+        padding-left: 35px;
+    }
+    & .iconfont {
+        position: absolute;
+        left: 15%;
+    }
+}
 .nav {
     display: flex;
     flex-wrap: wrap;
@@ -167,7 +187,7 @@ nav {
         flex-direction: column;
         align-items: center;
         width: 25%;
-        font-size: 15px;
+        font-size: 13px;
         & img {
             width: 65%;
         }

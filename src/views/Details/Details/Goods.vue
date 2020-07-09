@@ -57,7 +57,7 @@ import ShopCar from '../../../components/ShopCar/ShopCar'
 export default {
   data () {
     return {
-      // 保存右侧商品列表每项li的top值
+      // 保存右侧商品列表每类的offsetTop值
       tops: [],
       // 保存当前的滑动Y轴位移
       scrollY: 0
@@ -70,7 +70,7 @@ export default {
   computed: {
     ...mapState(['goods']),
 
-    // 计算当前滑动位置li的currentIndex
+    // 4.计算当前滑动位置li的currentIndex
     currentIndex () {
       const current = this.tops.findIndex((item, index, arr) => {
         if (index === arr.length - 1) {
@@ -91,7 +91,7 @@ export default {
       this.setGoods(data.data)
     },
 
-    // 1.使用BScroll插件
+    // 1.创建BScroll实例
     initBscoll () {
       // 添加到当前组件
       if (this.wrapper) return
@@ -122,14 +122,14 @@ export default {
     setBscoll () {
       const goods = this.$refs.goods
       goods.style.height = window.innerHeight - goods.offsetTop - 50 + 'px'
-      // 防止多次为window绑定同一个事件
-      window.removeEventListener('resize', () => {})
+      // 防止多次为window绑定同一resize事件？？
+      // window.removeEventListener('resize', () => {})
       window.addEventListener('resize', () => {
         goods.style.height = window.innerHeight - goods.offsetTop - 50 + 'px'
       })
     },
 
-    //  3.初始化右侧滑动区域的所有li的顶点坐标数组:(只初始化执行一次设置tops)
+    //  3.初始化右侧滑动区域的所有li的顶点坐标数组:（页面加载完成后）
     initTops () {
       this.tops = []
       const lis = this.$refs.wrapper_content.children
@@ -151,6 +151,7 @@ export default {
       this.$nextTick(() => {
         this.setBscoll()
         this.initTops()
+        this.initBscoll()
       })
     }
   },
@@ -159,9 +160,6 @@ export default {
     this.getGoods()
     // 本地获取购物车记录
     this.initShopCar()
-  },
-  mounted () {
-    this.initBscoll()
   }
 }
 </script>

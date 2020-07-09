@@ -1,13 +1,15 @@
 <template>
     <header>
+      <!-- 定位 -->
         <span class="location" @click="showLocationDialog()">
             <i class="iconfont icon-dingwei"></i>
             <span>{{address.city}}</span>
         </span>
-        <!-- 组件插槽 -->
-        <slot name="input" class="input"></slot>
-        <!-- 组件传值 -->
-        <span class="title">{{title}}</span>
+
+      <!-- search ,组件插槽-->
+        <slot name="center" class="input"></slot>
+
+      <!-- 登录注册 -->
         <span v-show="userData._id" class="personal" @click="$router.push('/personal')">
              <i class="iconfont icon-huiyuan"></i>
         </span>
@@ -70,9 +72,6 @@ export default {
     }
   },
   // 通过props传值
-  props: {
-    title: String
-  },
   computed: {
     ...mapState(['address', 'userData'])
   },
@@ -122,31 +121,6 @@ header {
         & i{
             font-size: 30px;
         }
-    }
-    & .title {
-        font-size: 18px;
-        font-weight: bold;
-        color: #02A774;
-    }
-}
-.search {
-    position: relative;
-    flex: 1;
-    width: 60%;
-    height: 30px;
-    line-height: 50px;
-    font-size: 12px;
-    text-align: center;
-    & input {
-        height: 100%;
-        width: 70%;
-        border-radius: 15px;
-        background-color: #fff;
-        padding-left: 35px;
-    }
-    & .iconfont {
-        position: absolute;
-        left: 15%;
     }
 }
 .login_btns {
