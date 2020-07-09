@@ -1,8 +1,8 @@
 <template>
     <div class="addcar">
-        <div class="reduce" v-show="goodsInfo" @click="updataShopCar(0,$event)">-</div>
-        <div class="acount" v-show="goodsInfo">{{goods.acount}}</div>
-        <div class="add" @click="updataShopCar(1,$event)">+</div>
+        <div class="reduce" v-show="goodsInfo.acount" @click="updataShopCar(0)">-</div>
+        <div class="acount" v-show="goodsInfo.acount">{{goodsInfo.acount}}</div>
+        <div class="add" @click="updataShopCar(1)">+</div>
     </div>
 </template>
 
@@ -16,19 +16,23 @@ export default {
     ...mapState(['shopCar']),
 
     goodsInfo () {
-      return this.shopCar.findIndex((item) => {
+      let info = {}
+      const index = this.shopCar.findIndex((item) => {
         return item.name === this.goods.name
       })
-      // return this.shopCar[index]
+      // 如果该商品购物车存在
+      if (index !== -1) {
+        info = this.shopCar[index]
+      }
+      return info
     }
   },
   methods: {
     ...mapActions(['asyncAddcar']),
 
     // 添加、减少购物车
-    updataShopCar (type, e) {
+    updataShopCar (type) {
       this.asyncAddcar({ type, goods: this.goods })
-      console.log(e.target)
     }
   }
 }

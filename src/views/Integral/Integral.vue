@@ -2,18 +2,14 @@
     <div>
         <span class="goback" @click="$router.go(-1)"><i class="iconfont icon-zuojiantou"></i>返回</span>
         <header>
-            订单
+            积分商城
         </header>
-        <div class="login">
+        <div class="integral">
             <div class="bg"></div>
             <button @click="$router.push('/login/1')" v-show="!userData._id">点击登录查看</button>
         </div>
         <div v-show="userData._id">
-            <ul>
-                <li v-for="(item,index) in 8" :key="index">
-                    订单item {{item}}
-                </li>
-            </ul>
+            敬请期待...
         </div>
     </div>
 </template>
@@ -45,7 +41,7 @@ header {
     color: #fff;
     text-align: center;
 }
-.login {
+.integral {
     position: fixed;
     left: 50%;
     top: 50%;

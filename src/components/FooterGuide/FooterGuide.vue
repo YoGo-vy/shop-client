@@ -16,10 +16,9 @@
 export default {
   data () {
     return {
-      list: [{ path: '/home', icon: 'icon-U', desc: '外卖' },
-        { path: '/search', icon: 'icon-sousuo-', desc: '搜索' },
-        { path: '/order', icon: 'icon-dingdan', desc: '订单' },
-        { path: '/personal', icon: 'icon-personal', desc: '我的' }
+      list: [{ path: '/home', icon: 'icon-U', desc: '外卖美食' },
+        { path: '/search', icon: 'icon-sousuo-', desc: '搜索商家' },
+        { path: '/personal', icon: 'icon-personal', desc: '个人中心' }
       ]
     }
   },

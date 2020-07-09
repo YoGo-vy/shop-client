@@ -1,52 +1,58 @@
 <template>
-    <div class="goods" ref="goods">
-      <aside class="aside">
-        <ul>
-          <li v-for="(item,index) in goods" :key="index"
-          :class="currentIndex==index?'current-li':''" @click="changeCurrent(index)">
-            {{item.name}}
-          </li>
-        </ul>
-      </aside>
+    <div>
+      <div class="goods" ref="goods">
+        <aside class="aside">
+          <ul>
+            <li v-for="(item,index) in goods" :key="index"
+            :class="currentIndex==index?'current-li':''" @click="changeCurrent(index)">
+              {{item.name}}
+            </li>
+          </ul>
+        </aside>
 
-      <article class="wrapper">
-        <!-- 商品分类 -->
-        <ul class="content" ref="wrapper_content">
-          <li v-for="(item, index) in goods" :key="index">
-            <div class="goods-msg">{{item.name}}</div>
+        <article class="wrapper">
+          <!-- 商品分类 -->
+          <ul class="content" ref="wrapper_content">
+            <li v-for="(item, index) in goods" :key="index">
+              <div class="goods-msg">{{item.name}}</div>
 
-            <!-- 当前分类下的商品列表 -->
-            <ul class="goods-group">
-              <li class="detail" v-for="(item2,index2) in item.foods" :key="index2">
-                <!-- 商品图片 -->
-                <div class="good-img">
-                  <img :src="item2.icon" alt="">
-                </div>
-                <!-- 商品描述 -->
-                <ul class="decs">
-                  <li>{{item2.name}}</li>
-                  <li>{{item2.description}}</li>
-                  <li>月销 {{item2.sellCount}} 份 <span class="haoping">好评率 {{item2.rating}}</span></li>
-                  <li>
-                    <span>￥{{item2.price}}</span>
-                    <span class="addcar" >
-                      <AddCar :goods='item2'>+</AddCar>
-                    </span>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+              <!-- 当前分类下的商品列表 -->
+              <ul class="goods-group">
+                <li class="detail" v-for="(item2,index2) in item.foods" :key="index2">
+                  <!-- 商品图片 -->
+                  <div class="good-img">
+                    <img :src="item2.icon" alt="">
+                  </div>
+                  <!-- 商品描述 -->
+                  <ul class="decs">
+                    <li>{{item2.name}}</li>
+                    <li>{{item2.description}}</li>
+                    <li>月销 {{item2.sellCount}} 份 <span class="haoping">好评率 {{item2.rating}}</span></li>
+                    <li>
+                      <span>￥{{item2.price}}</span>
+                      <span class="addcar" >
+                        <AddCar :goods='item2'>+</AddCar>
+                      </span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
 
-          </li>
-        </ul>
+            </li>
+          </ul>
 
-      </article>
+        </article>
+      </div>
+
+      <!-- 购物车组件 -->
+      <ShopCar></ShopCar>
     </div>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import AddCar from '../../../components/AddCar/AddCar'
+import AddCar from '../../../components/ShopCar/AddCar'
+import ShopCar from '../../../components/ShopCar/ShopCar'
 
 export default {
   data () {
@@ -58,7 +64,8 @@ export default {
     }
   },
   components: {
-    AddCar
+    AddCar,
+    ShopCar
   },
   computed: {
     ...mapState(['goods']),
@@ -76,7 +83,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['setGoods']),
+    ...mapMutations(['setGoods', 'initShopCar']),
 
     async getGoods () {
       const { data } = await this.$http.get('/goods')
@@ -150,6 +157,8 @@ export default {
   created () {
     // 获取商品列表
     this.getGoods()
+    // 本地获取购物车记录
+    this.initShopCar()
   },
   mounted () {
     this.initBscoll()

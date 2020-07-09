@@ -81,10 +81,10 @@ export default {
     // 动态设置commentBscroll高度
     setCommentBscoll () {
       const container = document.querySelector('.comments-container')
-      container.style.height = window.innerHeight - container.offsetTop + 'px'
+      container.style.height = window.innerHeight - container.offsetTop - 25 + 'px'
       window.removeEventListener('resize', () => { console.log('11') })
       window.addEventListener('resize', () => {
-        container.style.height = window.innerHeight - container.offsetTop + 'px'
+        container.style.height = window.innerHeight - container.offsetTop - 25 + 'px'
       })
     }
   },

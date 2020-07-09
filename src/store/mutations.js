@@ -72,5 +72,16 @@ export default {
         state.shopCar.push(params.goods)
       }
     }
+    // sessionStory本地存储用户购物车数据
+    const data = JSON.stringify(state.shopCar)
+    window.sessionStorage.setItem('shopCar', data)
+  },
+
+  // 本地sessionStory恢复购物车记录
+  initShopCar (state) {
+    const data = window.sessionStorage.getItem('shopCar')
+    //  如果为空，保证state.shopCar为数组形式
+    if (!data) return
+    state.shopCar = JSON.parse(data)
   }
 }

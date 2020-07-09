@@ -20,7 +20,7 @@
         </router-link>
 
         <!-- 用户账户余额 -->
-        <ul class="personal-acount">
+        <ul class="personal-acount" @click="personalAcount()">
             <li class="acount-item">
                 <div><strong class="account">0.00</strong>元</div>
                 <span>我的余额</span>
@@ -35,7 +35,7 @@
             </li>
         </ul>
         <!-- 服务列表 -->
-        <ul class="user">
+        <ul class="user" @click="personalServe($event)">
             <li>
                 <span><i class="iconfont icon-dingdan"></i>我的订单</span>
             </li>
@@ -79,6 +79,25 @@ export default {
       }
       this.setUserData({})
       this.$toast('退出成功')
+    },
+    personalAcount () {
+      if (!this.userData._id) {
+        this.$toast('目前尚未登录')
+      } else {
+        this.$toast('敬请期待...')
+      }
+    },
+
+    // 事件委托
+    personalServe (e) {
+      switch (e.target.innerText) {
+        case '我的订单':
+          this.$router.push('/order')
+          break
+        case '积分商城':
+          this.$router.push('/integral')
+          break
+      }
     }
   }
 
