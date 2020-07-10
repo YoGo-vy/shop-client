@@ -55,6 +55,7 @@ import AddCar from '../../../components/ShopCar/AddCar'
 import ShopCar from '../../../components/ShopCar/ShopCar'
 
 export default {
+  name: 'goods',
   data () {
     return {
       // 保存右侧商品列表每类的offsetTop值
@@ -160,6 +161,9 @@ export default {
     this.getGoods()
     // 本地获取购物车记录
     this.initShopCar()
+  },
+  mounted () {
+    console.log('goods组件mounted')
   }
 }
 </script>

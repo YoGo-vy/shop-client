@@ -109,8 +109,10 @@
           </van-dialog>
         </div>
 
-        <!-- 路由占位 -->
-        <router-view></router-view>
+        <!-- 路由占位+缓存商品，评论组件 -->
+        <keep-alive :include=include>
+          <router-view></router-view>
+        </keep-alive>
 
     </div>
 </template>
@@ -124,6 +126,10 @@ export default {
   },
   data () {
     return {
+
+      // KeepAlive按需缓存路由组件'comments', 'goods'
+      include: [],
+
       // 路由链接
       link: [{ desc: '点餐', path: '/goods' },
         { desc: '评价', path: '/comments' },
@@ -135,6 +141,18 @@ export default {
       showShopDetails: false,
       // 展示优惠信息
       showSaleDetails: false
+    }
+  },
+  watch: {
+    // 监听路由对象，动态设置include匹配，按需缓存路由组件
+    $route (to, from) {
+      if (this.$route.meta.keepAlive) {
+        const index = this.include.findIndex((item) => {
+          return item === this.$route.name
+        })
+        if (index !== -1) return
+        this.include.push(this.$route.name)
+      }
     }
   },
   components: {

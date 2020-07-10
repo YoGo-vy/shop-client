@@ -44,6 +44,7 @@
 import { mapState, mapMutations } from 'vuex'
 import Star from '../../../components/Star/Star'
 export default {
+  name: 'comments',
   components: {
     Star
   },
@@ -149,6 +150,7 @@ export default {
   mounted () {
     // 初始化Bscroll实例
     this.initCommentBscroll()
+    console.log('comments组件mounted')
   }
 
 }
