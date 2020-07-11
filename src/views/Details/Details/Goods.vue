@@ -18,10 +18,10 @@
 
               <!-- 当前分类下的商品列表 -->
               <ul class="goods-group">
-                <li class="detail" v-for="(item2,index2) in item.foods" :key="index2">
+                <li class="detail" v-for="(item2,index2) in item.foods" :key="index2" @click="showGoodsdetail()">
                   <!-- 商品图片 -->
                   <div class="good-img">
-                    <img :src="item2.icon" alt="">
+                    <img v-lazy="item2.icon" alt="">
                   </div>
                   <!-- 商品描述 -->
                   <ul class="decs">
@@ -61,7 +61,9 @@ export default {
       // 保存右侧商品列表每类的offsetTop值
       tops: [],
       // 保存当前的滑动Y轴位移
-      scrollY: 0
+      scrollY: 0,
+      // 控制展示当前商品的详细弹窗
+      isShowGoodsDetail: false
     }
   },
   components: {
@@ -90,6 +92,9 @@ export default {
       const { data } = await this.$http.get('/goods')
       if (data.code !== 0) return this.$toast('获取商品列表失败')
       this.setGoods(data.data)
+    },
+    showGoodsdetail () {
+      this.isShowGoodsDetail = true
     },
 
     // 1.创建BScroll实例
@@ -159,8 +164,6 @@ export default {
   created () {
     // 获取商品列表
     this.getGoods()
-    // 本地获取购物车记录
-    this.initShopCar()
   },
   mounted () {
     console.log('goods组件mounted')

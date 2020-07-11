@@ -3,7 +3,7 @@
       <!-- 定位 -->
         <span class="location" @click="showLocationDialog()">
             <i class="iconfont icon-dingwei"></i>
-            <span>{{address.city}}</span>
+            <span>东湖区</span>
         </span>
 
       <!-- search ,组件插槽-->
@@ -20,7 +20,10 @@
         <!-- 定位选择弹窗 -->
         <van-dialog v-model="showLocation" title="选择你的定位信息" show-cancel-button>
             <van-area
+            confirm-button-text=' '
+            cancel-button-text= ' '
             visible-item-count=3
+            :columns-num="2"
             :area-list="areaList"
             />
         </van-dialog>
@@ -47,26 +50,25 @@ export default {
       showLoginWay: false,
       areaList: {
         province_list: {
-          110000: '北京市',
-          120000: '天津市'
+          110000: '南昌市',
+          120000: '景德镇市',
+          130000: '萍乡市'
         },
         city_list: {
-          110100: '北京市',
-          110200: '县',
-          120100: '天津市',
-          120200: '县'
-        },
-        county_list: {
-          110101: '东城区',
-          110102: '西城区',
-          110105: '朝阳区',
-          110106: '丰台区',
-          120101: '和平区',
-          120102: '河东区',
-          120103: '河西区',
-          120104: '南开区',
-          120105: '河北区'
-          // ....
+          110100: '东湖区',
+          110200: '西湖区',
+          110300: '青云谱区',
+          110400: '湾里区',
+          110500: '青山湖区',
+          110600: '新建县',
+          110700: '南昌县',
+          110800: '进贤县',
+          110900: '安义县',
+          120100: '珠山区',
+          120200: '昌江区',
+          120300: '乐平市',
+          120400: '浮梁县',
+          120500: '其他'
         }
       }
     }

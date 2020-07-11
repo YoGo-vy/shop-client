@@ -50,7 +50,6 @@ header {
     & .bg {
         width: 300px;
         height: 300px;
-        background: url(/imgs/order/person.png) no-repeat center;
     }
     & button {
         height: 40px;

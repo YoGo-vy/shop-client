@@ -2,7 +2,9 @@
   <div id="app">
 
     <!-- 路由占位符 -->
-    <router-view></router-view>
+    <keep-alive include="home">
+      <router-view></router-view>
+    </keep-alive>
 
     <!-- 底部导航栏 -->
     <FooterGuide/>
@@ -21,7 +23,7 @@ export default {
     FooterGuide
   },
   methods: {
-    ...mapMutations(['setAddress', 'setcategorys', 'setshops', 'setUserData']),
+    ...mapMutations(['setAddress', 'setcategorys', 'setshops', 'setUserData', 'initShopCar']),
 
     // 请求获取定位信息
     async getAddress () {
@@ -52,6 +54,7 @@ export default {
 
     // 根据cookie信息自动请求登录（保存用户登录状态）
     async loginByCookie () {
+      // 自动携带cookie信息
       const { data } = await this.$http.get('/userinfo')
       if (data.code !== 0) {
         return this.$toast('尚未登录，请前往登录')
@@ -66,6 +69,9 @@ export default {
     this.getCategoryList()
     this.getshops()
     this.loginByCookie()
+
+    // 本地获取购物车记录
+    this.initShopCar()
   }
 }
 </script>

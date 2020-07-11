@@ -36,7 +36,7 @@
             <div class="list" v-if="categorys.length" >
                 <div @click="$router.push('/details')" class="list-item" v-for="(item) in shops" :key="item.id">
                     <div class="item-img">
-                        <img src="/imgs/nav/1.jpg" alt="">
+                        <img v-lazy="'/imgs/nav/1.jpg'" alt="">
                     </div>
                     <ul class="item-msg">
                         <li>
@@ -79,6 +79,7 @@ import Swiper from 'swiper'
 import '../../../node_modules/swiper/css/swiper.min.css'
 import { mapState } from 'vuex'
 export default {
+  name: 'home',
   data () {
     return {
       baseUrl: 'https://fuss10.elemecdn.com'

@@ -24,7 +24,7 @@
                                 <span>{{item.username}}</span>
                                 <Star class="Star" :score='item.score' :size='36' />
                             </div>
-                            <span>时间过滤器</span>
+                            <span>{{item.rateTime |date-format}}</span>
                         </li>
                         <li>
                             <p>{{item.text}}</p>

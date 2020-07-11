@@ -8,7 +8,10 @@ import {
   DropdownItem,
   Checkbox,
   ActionSheet,
-  Popup
+  Popup,
+  Card,
+  SubmitBar,
+  AddressList
 } from 'vant'
 
 //  $toast
@@ -22,3 +25,6 @@ Vue.use(DropdownItem)
 Vue.use(Checkbox)
 Vue.use(ActionSheet)
 Vue.use(Popup)
+Vue.use(Card)
+Vue.use(SubmitBar)
+Vue.use(AddressList)
