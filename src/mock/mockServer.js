@@ -10,6 +10,7 @@
 import Mock from 'mockjs'
 // // 虚拟后台数据
 import data from './data.json'
+import shopCar from './shopCar.json'
 
 // // 商品列表
 Mock.mock('/api/goods', { code: 0, data: data.goods })
@@ -17,3 +18,5 @@ Mock.mock('/api/goods', { code: 0, data: data.goods })
 Mock.mock('/api/comments', { code: 0, data: data.ratings })
 // 商家信息
 Mock.mock('/api/shopinfo', { code: 0, data: data.info })
+// 购物车
+Mock.mock('/api/shopcar', { code: 0, data: shopCar })

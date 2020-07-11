@@ -73,15 +73,20 @@ export default {
       }
     }
     // sessionStory本地存储用户购物车数据
-    const data = JSON.stringify(state.shopCar)
-    window.sessionStorage.setItem('shopCar', data)
+    // const data = JSON.stringify(state.shopCar)
+    // window.sessionStorage.setItem('shopCar', data)
   },
 
   // 本地sessionStory恢复购物车记录
-  initShopCar (state) {
+  /* initShopCar (state) {
     const data = window.sessionStorage.getItem('shopCar')
     //  如果为空，保证state.shopCar为数组形式
     if (!data) return
     state.shopCar = JSON.parse(data)
+  } */
+
+  // 初始化购物车列表
+  initShopCar (state, carList) {
+    state.shopCar = carList
   }
 }

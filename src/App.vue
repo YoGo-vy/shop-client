@@ -64,14 +64,18 @@ export default {
 
   },
 
-  created () {
+  async created () {
     this.getAddress()
     this.getCategoryList()
     this.getshops()
     this.loginByCookie()
 
     // 本地获取购物车记录
-    this.initShopCar()
+    const { data } = await this.$http.get('/shopcar')
+    if (data.code !== 0) {
+      return this.$toast('获取购物车列表失败')
+    }
+    this.initShopCar(data.data)
   }
 }
 </script>

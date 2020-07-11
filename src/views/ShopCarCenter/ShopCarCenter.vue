@@ -53,7 +53,7 @@
     </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import Header from '../../components/Header/Header'
 import AddCar from '../../components/ShopCar/AddCar'
 export default {
@@ -94,6 +94,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['initShopCar']),
     onEdit () {
       this.$toast('根据id，修改地址')
     },
